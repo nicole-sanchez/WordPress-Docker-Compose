@@ -4,14 +4,12 @@ pipeline {
     stages {
         stage('1. Descargar código desde GitHub') {
             steps {
-automáticamente
                 git url: 'https://github.com/nicole-sanchez/WordPress-Docker-Compose.git', branch: 'main'
             }
         }
         
         stage('2. Detener servicios anteriores') {
             steps {
-corriendo, no falle el pipeline.
                 sh 'docker compose down || true'
             }
         }
@@ -29,3 +27,5 @@ corriendo, no falle el pipeline.
         }
     }
 }
+    
+    
