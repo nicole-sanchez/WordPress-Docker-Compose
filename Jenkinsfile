@@ -1,24 +1,35 @@
 pipeline {
     agent any
+    options { skipDefaultCheckout() }
     stages {
-        stage('1. Entrar al directorio del proyecto') {
+        stage('1. Descargar código desde GitHub') {
             steps {
-                sh 'cd /var/proyecto && ls -la'
+                dir('C:\\Users\\Nicole\\practica-wordpress') {
+                    git url: 'https://github.com/nicole-sanchez/WordPress-Docker-Compose.git', branch: 'main'
+                }
             }
         }
         stage('2. Detener servicios anteriores') {
             steps {
-                sh 'cd /var/proyecto && docker compose down || true'
+                bat '''
+cd C:\\Users\\Nicole\\practica-wordpress
+docker compose down || exit /b 0
+'''
             }
         }
         stage('3. Levantar WordPress y Base de Datos') {
             steps {
-                sh 'cd /var/proyecto && docker compose up -d'
+                bat '''
+cd C:\\Users\\Nicole\\practica-wordpress
+docker compose up -d
+'''
             }
         }
-        stage('4. Verificar que todo quedó activo') {
+        stage('4. Verificar estado') {
             steps {
-                sh 'cd /var/proyecto && docker ps'
+                bat '''
+docker ps
+'''
             }
         }
     }
