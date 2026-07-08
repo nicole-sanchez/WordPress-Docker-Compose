@@ -1,6 +1,10 @@
 pipeline {
     agent any
     
+    tools {
+        dockerTool 'Mydocker' 
+    }
+    
     stages {
         stage('1. Descargar código desde GitHub') {
             steps {
