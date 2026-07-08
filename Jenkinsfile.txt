@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+    stages {
+        stage('1. Checkout código') {
+            steps {
+                git url: 'https://github.com/TU_USUARIO/TU_REPO.git', branch: 'main'
+            }
+        }
+        stage('2. Detener contenedores anteriores') {
+            steps {
+                bat 'docker compose -f /var/proyecto/docker-compose.yml down'
+            }
+        }
+        stage('3. Levantar servicios') {
+            steps {
+                bat 'docker compose -f /var/proyecto/docker-compose.yml up -d'
+            }
+        }
+        stage('4. Verificar despliegue') {
+            steps {
+                bat 'docker ps'
+            }
+        }
+    }
+}
